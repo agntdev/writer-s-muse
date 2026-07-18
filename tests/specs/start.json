@@ -7,9 +7,22 @@
         "expect": [
           {
             "method": "sendMessage",
-            "payload": { "text": "👋 Welcome! Tap a button below to get started." }
+            "payload": { "text": "👋 Welcome to Writer's Muse!\n\nTap a button below to spark your next piece." }
           }
         ]
+      }
+    ]
+  },
+  {
+    "name": "Back to menu re-renders the welcome",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [{ "method": "sendMessage" }]
+      },
+      {
+        "send": { "callback": "menu:main" },
+        "expect": [{ "method": "editMessageText" }]
       }
     ]
   }
