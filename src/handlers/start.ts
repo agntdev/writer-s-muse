@@ -1,6 +1,7 @@
 import { Composer } from "grammy";
 import type { Ctx } from "../bot.js";
 import { registerMainMenuItem, mainMenuKeyboard } from "../toolkit/index.js";
+import { userStore } from "../store.js";
 
 registerMainMenuItem({ label: "💡 Get idea", data: "idea:generate", order: 10 });
 registerMainMenuItem({ label: "🎵 Check rhythm", data: "check:rhythm", order: 20 });
@@ -14,7 +15,21 @@ const WELCOME =
 
 composer.command("start", async (ctx) => {
   ctx.session.step = "menu";
+  const from = ctx.from;
+  if (from) {
+    await userStore.set(String(from.id), {
+      userId: from.id,
+      displayName: from.first_name,
+    });
+  }
   await ctx.reply(WELCOME, { reply_markup: mainMenuKeyboard() });
+});
+
+composer.command("cancel", async (ctx) => {
+  ctx.session.step = "menu";
+  await ctx.reply("No worries — cancelled. Tap a button to start something new.", {
+    reply_markup: mainMenuKeyboard(),
+  });
 });
 
 composer.callbackQuery("menu:main", async (ctx) => {

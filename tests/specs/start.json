@@ -25,5 +25,19 @@
         "expect": [{ "method": "editMessageText" }]
       }
     ]
+  },
+  {
+    "name": "/cancel returns to the main menu",
+    "steps": [
+      {
+        "send": { "text": "/cancel" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": { "text": "No worries — cancelled. Tap a button to start something new." }
+          }
+        ]
+      }
+    ]
   }
 ]
