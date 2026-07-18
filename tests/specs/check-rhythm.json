@@ -1,19 +1,23 @@
 [
   {
-    "name": "Check rhythm",
+    "name": "check rhythm flow — submit text and get analysis",
     "steps": [
       {
+        "send": { "callback": "check:rhythm" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "Paste your poem or verse below — I'll check its rhythm and rhyme scheme." } }
+        ]
+      },
+      {
+        "send": { "text": "Roses are red\nViolets are blue\nSugar is sweet\nAnd so are you" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Analyze poem's meter and rhyme scheme"
+              "text": "📊 Rhythm analysis\n\nLines: 4\nAvg syllables/line: 4.8\nRhyme scheme: ABCD\n\nSyllable breakdown:\n  Line 1: 5 syllables\n  Line 2: 5 syllables\n  Line 3: 4 syllables\n  Line 4: 5 syllables\n\n💡 Suggestions\n• No clear rhyme pattern detected — consider adding end rhymes for structure."
             }
           }
-        ],
-        "send": {
-          "callback": "check:rhythm"
-        }
+        ]
       }
     ]
   }

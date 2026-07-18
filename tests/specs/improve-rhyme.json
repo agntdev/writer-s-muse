@@ -1,19 +1,29 @@
 [
   {
-    "name": "Improve rhyme",
+    "name": "improve rhyme flow — submit text and get suggestions",
     "steps": [
       {
+        "send": { "callback": "improve:rhyme" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "Paste the text you'd like to improve." } }
+        ]
+      },
+      {
+        "send": { "text": "The cat sat on the mat\nThe dog ran in the park" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "What should I focus on?" } }
+        ]
+      },
+      {
+        "send": { "callback": "improve:focus:rhyme" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Request specific rhyme/meter improvements"
+              "text": "Here are some rhyme suggestions:\n\n✨ mat → cat\nThis line doesn't rhyme with any other — try replacing \"mat\" with a rhyming word.\n\n✨ park → [rhyming word]\nThis line doesn't rhyme with any other — try replacing \"park\" with a rhyming word.\n\nTap another focus area to explore more, or go back to the menu."
             }
           }
-        ],
-        "send": {
-          "callback": "improve:rhyme"
-        }
+        ]
       }
     ]
   }

@@ -1,19 +1,29 @@
 [
   {
-    "name": "review:request",
+    "name": "review request flow — submit text and get confirmation",
     "steps": [
       {
+        "send": { "callback": "review:request" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "Paste the piece you'd like reviewed." } }
+        ]
+      },
+      {
+        "send": { "text": "A short poem about dawn breaking over the hills" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "What kind of piece is this?" } }
+        ]
+      },
+      {
+        "send": { "callback": "review:type:poem" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Send submission to admin for manual feedback"
+              "text": "Got it! I've sent your piece to our review team. You'll hear back soon.\n\nTap another button to keep writing!"
             }
           }
-        ],
-        "send": {
-          "callback": "review:request"
-        }
+        ]
       }
     ]
   }

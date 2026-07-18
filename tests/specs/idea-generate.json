@@ -1,19 +1,29 @@
 [
   {
-    "name": "Get idea",
+    "name": "idea generation flow — genre then mood then prompts",
     "steps": [
       {
+        "send": { "callback": "idea:generate" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "What genre are you writing in?" } }
+        ]
+      },
+      {
+        "send": { "callback": "idea:genre:poetry" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "What mood should it capture?" } }
+        ]
+      },
+      {
+        "send": { "callback": "idea:mood:joyful" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Generate writing prompts based on genre/mood"
+              "text": "Here are 3 prompts to spark your writing:\n\n1. Describe the moment sunlight hits a dewdrop — in exactly eight lines.\n\n2. Write a sonnet where every line starts with a different color.\n\n3. Capture the feeling of dancing alone in your kitchen — no more than 12 lines.\n\nTap another genre to try again, or go back to the menu."
             }
           }
-        ],
-        "send": {
-          "callback": "idea:generate"
-        }
+        ]
       }
     ]
   }
