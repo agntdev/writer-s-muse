@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Check rhythm",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Analyze poem's meter and rhyme scheme"
+            }
+          }
+        ],
+        "send": {
+          "callback": "check:rhythm"
+        }
+      }
+    ]
+  }
+]
